@@ -6,6 +6,8 @@ from django.db import IntegrityError
 from .forms import TaskForm
 from .models import Task
 from django.shortcuts import get_object_or_404 # forma de mandar una respuesta al cliente sin que el servidor se caiga
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -95,6 +97,19 @@ def task_detail(request, task_id):
             return redirect('tasks')
         except ValueError:
             return render(request, 'task_detail.html',{'task': task, 'form':form, 'error': 'Error updating task'})
+    
+def complete_task(request,task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user)
+    if request.method =='POST':
+        task.datecompleted = timezone.now()
+        task.save()
+        return redirect('tasks')
+    
+def delete_task(request,task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user)
+    if request.method =='POST':
+        task.delete()
+        return redirect('tasks')
     
 
 

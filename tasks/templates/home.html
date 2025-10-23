@@ -6,21 +6,35 @@
 <main class="container" py-5>
     <section class="card card-body mt-4">
         <h1 class="display-1 text-center">Inicio</h1>
-        <p>
-            Aplicación gestión de tareas realizado en el lenguaje Python, con el framework Django, HTML, CSS (Bootstrap), con motor de base de datos SQLite.
-        </p>
-        <p>
-            La aplicación permite registrar usuario, inciar sesión y realizar la gestión de tareas:
-            <ul>
-                <li>Crear tarea</li>
-                <li>Modificar tarea</li>
-                <li>Determinar cual tarea es la importante dentro de la lista</li>
-                <li>Marcar tarea completada</li>
-                <li>Listar tareas pendientes</li>
-                <li>Listar tareas completadas</li>
-            </ul>
+        
+        <p class="card-text">
+            Aplicación web de Gestion de Tareas para crear, editar y organizar tareas. Soporta registro e inicio de sesión, tareas prioritarias, marcado de tareas completadas y vistas filtradas (pendientes / completadas). Interfaz responsiva con Bootstrap y almacenamiento en SQLite.
         </p>
 
+        <ul>
+            <li>Registro e inicio de sesión por usuario</li>
+            <li>Crear, editar y eliminar tareas</li>
+            <li>Marcar tareas como importantes</li>
+            <li>Marcar tareas como completadas y ver historial</li>
+            <li>Vistas filtradas y protección de rutas (login requerido)</li>
+        </ul>
+
+
+        <h5 class="mt-3">Arquitectura y patrones</h5>
+        <p class="small">
+            Esta aplicación sigue la arquitectura Django (MTV: Models, Templates, Views) con separación clara de capas:
+        </p>
+        <ul class="small">
+            <li><strong>Backend:</strong> Django 5 (vistas basadas en funciones), Django ORM para persistencia en SQLite, autenticación basada en sesiones.</li>
+            <li><strong>Models:</strong> lógica de datos y mapeo a la base (patrón Active Record a través del ORM).</li>
+            <li><strong>Views/Controllers:</strong> funciones que gestionan solicitudes HTTP, validación con Django Forms y uso de decoradores como <code>login_required</code> para protección de rutas.</li>
+            <li><strong>Templates / Frontend:</strong> Django Templates + Bootstrap para UI responsiva; uso de template inheritance (base.html) para mantener DRY.</li>
+            <li><strong>Patrones aplicados:</strong> separación de responsabilidades (SoC), uso de nombres de rutas y reversión para desacoplar enlaces, manejo de formularios (Form objects) y protección CSRF.</li>
+        </ul>
+        
+        
+        
+        <p class="small text-muted mb-0">Tecnologías: Python, Django, HTML, CSS, JavaScript, Bootstrap, SQLite.</p>
 
         <div class="text-center">
             <a class="btn btn-primary" href="/signin/">

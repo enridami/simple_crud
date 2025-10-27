@@ -22,15 +22,20 @@
         </p>
 
 
-        <div class="text-center">
-            <a class="btn btn-primary" href="/signin/">
-                Iniciar sesión
-            </a>
+        {% if user.is_authenticated %}
+            
 
-            <a class="btn btn-secondary" href="/signup">
-                Registrarse
-            </a>
-        </div>
+        {% else %}
+            <div class="text-center">
+                <a class="btn btn-primary" href="/signin/">
+                    Iniciar sesión
+                </a>
+
+                <a class="btn btn-secondary" href="/signup">
+                    Registrarse
+                </a>
+            </div>
+        {% endif %}
 
          
     </section>

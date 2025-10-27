@@ -30,7 +30,7 @@ Esta aplicación sigue la arquitectura Django (MTV: Models, Templates, Views) co
 **Pre-requisitos**: 
 - Python
 - pip
-- virutalenv
+- virtualenv
 
 **1 - Crear el directorio**: abrir el terminal y crear el directorio en donde se guardara el proyecto.
 

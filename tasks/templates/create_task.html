@@ -11,9 +11,17 @@
                 {% csrf_token %}
                 {{form.as_p}}
 
-                <button class="btn btn-primary"> 
-                    Guardar
-                </button>
+                
+                <div type="submit" class="d-flex gap-2">
+                    
+                    <button class="btn btn-primary flex-fill"> 
+                        Guardar
+                    </button>
+    
+                    <button type="button" class="btn btn-danger flex-fill" onclick="history.back()">
+                        Cancelar
+                    </button>
+                </div>
 
             </form>
 

@@ -8,6 +8,8 @@ from .models import Task
 from django.shortcuts import get_object_or_404 # forma de mandar una respuesta al cliente sin que el servidor se caiga
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 # Create your views here.
 
@@ -43,14 +45,16 @@ def signup(request):
 def tasks(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
     return render(request, 'tasks.html',{
-        'tasks': tasks
+        'tasks': tasks,
+        'title': 'Lista de tareas'
     })
 
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
     return render(request, 'tasks.html',{
-        'tasks': tasks
+        'tasks': tasks,
+        'title': 'Tareas completadas'
     })
 
 @login_required
@@ -104,11 +108,15 @@ def task_detail(request, task_id):
         try:
             task = get_object_or_404(Task, pk=task_id, user=request.user)
             form = TaskForm(request.POST, instance=task)
-            form.save()
-            return redirect('tasks')
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Tarea actualizada')
+                return redirect('tasks')
+            else:
+                return render(request, 'task_detail.html', {'task': task, 'form': form}, status=400)
         except ValueError:
-            return render(request, 'task_detail.html',{'task': task, 'form':form, 'error': 'Error updating task'})
-    
+            return render(request, 'task_detail.html', {'task': task, 'form': TaskForm(instance=task), 'error': 'Error al actualizar'}, status=400)
+
 
 @login_required
 def complete_task(request,task_id):
@@ -116,6 +124,7 @@ def complete_task(request,task_id):
     if request.method =='POST':
         task.datecompleted = timezone.now()
         task.save()
+        messages.success(request, 'Tarea marcada como completada')
         return redirect('tasks')
 
 
@@ -124,6 +133,7 @@ def delete_task(request,task_id):
     task = get_object_or_404(Task, pk=task_id, user=request.user)
     if request.method =='POST':
         task.delete()
+        messages.success(request, 'Tarea eliminada')
         return redirect('tasks')
     
 

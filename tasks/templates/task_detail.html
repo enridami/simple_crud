@@ -13,28 +13,31 @@
                     {% csrf_token %}
 
                     {{form.as_p}}
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary w-100">
                         Actualizar
                     </button>
 
                 </form>
 
-                <div class="mt-3 d-flex gap-4">
-                    
+                <div class="mt-3 d-flex gap-2">
                     <form action="{% url 'complete_task' task.id %}" method="POST">
                         {% csrf_token %}
-                        <button class="btn btn-secondary">
+                        <button type="submit" class="btn btn-success flex-fill">
                             Tarea completa
                         </button>
                     </form>
     
                     <form action="{% url 'delete_task' task.id %}" method="POST">
                         {% csrf_token %}
-                        <button class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger flex-fill">
                             Eliminar tarea
                         </button>
-
                     </form>
+
+                    <button type="submit" class="btn btn-outline-danger flex-fill" onclick="history.back()">
+                            Cancelar
+                    </button>
+                    
                 </div>
         </div>
     </div>
